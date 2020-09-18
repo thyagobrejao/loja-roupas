@@ -10,9 +10,15 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 
+import CoreuiVue from '@coreui/vue';
+Vue.use(CoreuiVue);
+
+import store from './store'
+
 const app = document.getElementById('app');
 
 new Vue({
+    store,
     render: (h) =>
         h(InertiaApp, {
             props: {
