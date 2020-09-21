@@ -8,39 +8,46 @@
         <template #toggler>
             <CHeaderNavItem only-link>
                 <div class="text-uppercase">
-                    <CButton style="color: white">
-                        <font-awesome-icon icon="user-shield" style="margin-right: 10px;"/>
-                        <b class="d-md-down-none">{{ getNome }}</b>
-                        <font-awesome-icon icon="angle-down" style="margin-left: 10px;"/>
+                    <CButton>
+                        <font-awesome-icon icon="user-shield"/>
+                        <b class="d-md-down-none">{{ $page.user.name }}</b>
+                        <font-awesome-icon icon="angle-down"/>
                     </CButton>
                 </div>
             </CHeaderNavItem>
         </template>
-        <CDropdownItem @click="logout">
-            <i class="cui-lock-locked mr-2"/> Sair
+        <CDropdownItem>
+            <inertia-link class="dropdown-item" role="menuitem" href="/user/profile">
+                Perfil
+            </inertia-link>
+        </CDropdownItem>
+        <CDropdownItem>
+            <form @submit.prevent="logout">
+                <button type="submit" class="dropdown-item" role="menuitem">
+                    Sair
+                </button>
+            </form>
         </CDropdownItem>
     </CDropdown>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    export default {
-        name: 'TheHeaderDropdownAccnt',
-        data() {
-            return {
-                itemsCount: 42,
-            }
+
+export default {
+    name: 'TheHeaderDropdownAccnt',
+    data() {
+        return {
+            itemsCount: 42,
+        }
+    },
+    computed: {},
+    methods: {
+        logout() {
+            axios.post('/logout').then(response => {
+                window.location = '/';
+            })
         },
-        computed:  {
-            ...mapGetters(['getNome']),
-        },
-        methods: {
-            logout: function () {
-                this.$store.dispatch('logout')
-                    .then(() => {
-                        this.$router.push('/pages/login')
-                    })
-            }
-        },
-    }
+    },
+    components: {},
+}
 </script>

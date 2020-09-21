@@ -1,5 +1,5 @@
 <template>
-    <app-layout>
+    <the-container>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Profile
@@ -31,23 +31,23 @@
                 <delete-user-form class="mt-10 sm:mt-0" />
             </div>
         </div>
-    </app-layout>
+    </the-container>
 </template>
 
 <script>
-    import AppLayout from './../../Layouts/AppLayout'
     import DeleteUserForm from './DeleteUserForm'
     import JetSectionBorder from './../../Jetstream/SectionBorder'
     import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
     import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
     import UpdatePasswordForm from './UpdatePasswordForm'
     import UpdateProfileInformationForm from './UpdateProfileInformationForm'
+    import TheContainer from "../../containers/TheContainer";
 
     export default {
         props: ['sessions'],
 
         components: {
-            AppLayout,
+            TheContainer,
             DeleteUserForm,
             JetSectionBorder,
             LogoutOtherBrowserSessionsForm,

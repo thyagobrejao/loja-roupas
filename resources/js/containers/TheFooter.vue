@@ -1,10 +1,10 @@
 <template>
     <CFooter :fixed="false">
         <div>
-            Sistema Integrado de Consultas Operacionais
+            Sempre Lind@
         </div>
         <div class="ml-auto">
-            Versão: 2.0 - Data: 24/09/2019
+            Versão: 1.0 - Data: 24/09/2020
         </div>
     </CFooter>
 </template>

@@ -15,10 +15,68 @@ Vue.use(CoreuiVue);
 
 import store from './store'
 
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {
+    faAngleDown,
+    faMinus,
+    faPlus,
+    faSearch,
+    faUserShield,
+    faSync,
+    faTimes,
+    faQuestionCircle,
+    faCamera,
+    faAddressCard,
+    faExclamationTriangle,
+    faCar,
+    faUser,
+    faIdCard,
+    faLaptop,
+    faTrafficLight,
+    faHandHoldingUsd,
+    faWarehouse,
+    faEye,
+    faBalanceScale,
+    faDatabase,
+    faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+
+library.add(
+    faSearch,
+    faMinus,
+    faPlus,
+    faUserShield,
+    faAngleDown,
+    faSync,
+    faTimes,
+    faQuestionCircle,
+    faCamera,
+    faAddressCard,
+    faExclamationTriangle,
+    faCar,
+    faUser,
+    faIdCard,
+    faLaptop,
+    faTrafficLight,
+    faHandHoldingUsd,
+    faWarehouse,
+    faEye,
+    faBalanceScale,
+    faDatabase,
+    faTrash,
+);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+import {iconsSet as icons} from './../assets/icons/icons'
+
 const app = document.getElementById('app');
 
 new Vue({
     store,
+    icons,
     render: (h) =>
         h(InertiaApp, {
             props: {

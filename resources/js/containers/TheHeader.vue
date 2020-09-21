@@ -11,9 +11,7 @@
             @click="$store.commit('toggleSidebarDesktop')"
         />
         <CHeaderNav class="mr-auto">
-            <h2 class="topo">SICOP
-                <CBadge color="info" class="text-uppercase" v-if="env !== 'production'">{{env}}</CBadge>
-            </h2>
+            <h2 class="topo">Sempre Linda</h2>
             <!--      <CHeaderNavItem class="px-3" to="/dashboard">Dashboard</CHeaderNavItem>-->
             <!--      <CHeaderNavItem class="px-3" to="/users" exact>Users</CHeaderNavItem>-->
             <!--      <CHeaderNavItem class="px-3">Settings</CHeaderNavItem>-->
@@ -40,13 +38,11 @@
         name: 'TheHeader',
         data: function () {
             return {
-                env: '',
                 exibeNome: true,
             }
         },
         created: function () {
-            this.exibeNome = this.$store.getters.isLoggedIn;
-            this.env = process.env.VUE_APP_ENV;
+            this.exibeNome = this.$page.user.name;
         },
         components: {
             TheHeaderDropdownAccnt
