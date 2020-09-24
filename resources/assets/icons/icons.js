@@ -76,7 +76,15 @@ import {
     cilUser,
     cilUserFemale,
     cilUserFollow,
-    cilXCircle
+    cilXCircle,
+    cilHighlighter,
+    cilAirplaneMode,
+    cilMonitor,
+    cilHotTub,
+    cilMoodVeryGood,
+    cilMoney,
+    cilSitemap,
+    cilMug
 
 } from '@coreui/icons'
 import {logo} from './logo'
@@ -129,7 +137,15 @@ export const iconsSet = Object.assign(
         cilUser,
         cilUserFemale,
         cilUserFollow,
-        cilXCircle
+        cilXCircle,
+        cilHighlighter,
+        cilAirplaneMode,
+        cilMonitor,
+        cilHotTub,
+        cilMoodVeryGood,
+        cilMoney,
+        cilSitemap,
+        cilMug
     },
     {
         cifUs,

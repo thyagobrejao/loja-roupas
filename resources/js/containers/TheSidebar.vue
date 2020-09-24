@@ -25,7 +25,15 @@
         </CSidebarBrand>
 
         <CSidebarNav>
-            <nav-link icon="cil-speedometer" name="Teste" href="/user/profile"/>
+            <nav-link icon="cil-speedometer" name="Estoque" href="/dashboard"/>
+            <nav-link icon="cil-airplane-mode" name="Saídas" href="/saidas"/>
+            <nav-link href="/entradas" icon="cil-monitor" name="Entradas"/>
+            <nav-link href="/produtos" icon="cil-hot-tub" name="Produtos"/>
+            <nav-link href="/categorias" icon="cil-highlighter" name="Categorias"/>
+            <nav-link href="/clientes" icon="cil-mood-very-good" name="Clientes"/>
+            <nav-link href="/relatorios" icon="cil-money" name="Relatórios"/>
+            <nav-link href="/fornecedores" icon="cil-sitemap" name="Fornecedores"/>
+            <nav-link href="/vendedores" icon="cil-mug" name="Vendedores"/>
         </CSidebarNav>
         <CSidebarMinimizer
             class="d-md-down-none"
