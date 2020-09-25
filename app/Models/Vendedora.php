@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedora extends Model
 {
     use HasFactory;
+
+    public function Venda() {
+        return $this->belongsTo("App\Models\Venda", "vendedoras_id");
+    }
 }

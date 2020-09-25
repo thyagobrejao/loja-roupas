@@ -17,7 +17,7 @@ class CreateSaidasTable extends Migration
             $table->id();
             $table->float("valor_venda", 8,2);
             $table->integer("quantidade")->unsigned();
-            $table->tinyInteger("status")->unsigned();
+            $table->boolean("reserva")->default(0);
             $table->bigInteger("produtos_id")->unsigned();
             $table->bigInteger("vendas_id")->unsigned();
             $table->timestamps();

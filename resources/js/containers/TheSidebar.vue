@@ -26,14 +26,16 @@
 
         <CSidebarNav>
             <nav-link icon="cil-speedometer" name="Estoque" href="/dashboard"/>
-            <nav-link icon="cil-airplane-mode" name="Saídas" href="/saidas"/>
-            <nav-link href="/entradas" icon="cil-monitor" name="Entradas"/>
-            <nav-link href="/produtos" icon="cil-hot-tub" name="Produtos"/>
-            <nav-link href="/categorias" icon="cil-highlighter" name="Categorias"/>
-            <nav-link href="/clientes" icon="cil-mood-very-good" name="Clientes"/>
+            <nav-link icon="cil-airplane-mode" name="Vendas" href="/venda"/>
+            <nav-link href="/entrada" icon="cil-monitor" name="Entradas"/>
+            <nav-link href="/produto" icon="cil-hot-tub" name="Produtos"/>
+            <nav-link href="/cliente" icon="cil-mood-very-good" name="Clientes"/>
             <nav-link href="/relatorios" icon="cil-money" name="Relatórios"/>
-            <nav-link href="/fornecedores" icon="cil-sitemap" name="Fornecedores"/>
-            <nav-link href="/vendedores" icon="cil-mug" name="Vendedores"/>
+            <nav-link href="/fornecedor" icon="cil-sitemap" name="Fornecedores"/>
+            <nav-link href="/vendedora" icon="cil-mug" name="Vendedores"/>
+            <nav-link href="/formaPagamento" icon="cil-layers" name="Formas de Pagamento"/>
+            <nav-link href="/tipoProduto" icon="cil-puzzle" name="Tipos de Produtos"/>
+            <nav-link href="/notaFiscal" icon="cil-task" name="Notas Fiscais"/>
         </CSidebarNav>
         <CSidebarMinimizer
             class="d-md-down-none"

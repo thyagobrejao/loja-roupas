@@ -17,12 +17,12 @@ class CreateEntradasTable extends Migration
             $table->id();
             $table->tinyInteger("quantidade")->unsigned();
             $table->string('tamanho', 3);
-            $table->float("valor", 8,2);
+            $table->float("valor_unitario", 8,2);
             $table->tinyInteger("status")->unsigned()->comment("1-foi levada para troca
                                                                                 2-veio na troca de outra
                                                                                 3-devolução de compra de cliente
                                                                                 4-Reserva cadastrada");
-            $table->bigInteger("nota_fiscals_id")->unsigned();
+            $table->bigInteger("nota_fiscals_id")->unsigned()->nullable();
             $table->bigInteger("produtos_id")->unsigned();
             $table->timestamps();
         });

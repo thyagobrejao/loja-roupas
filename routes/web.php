@@ -1,6 +1,17 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\FormaPagamentoController;
+use App\Http\Controllers\FornecedoreController;
+use App\Http\Controllers\FotoController;
+use App\Http\Controllers\NotaFiscalController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\SaidaController;
+use App\Http\Controllers\TipoProdutoController;
+use App\Http\Controllers\VendaController;
+use App\Http\Controllers\VendedoraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +32,17 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth:sanctum','verified']], function () {
     Route::get('/dashboard', [DashBoardController::class, 'index'])->name('dashboard');
+    Route::resources([
+        'entrada' => EntradaController::class,
+        'cliente' => ClienteController::class,
+        'formaPagamento' => FormaPagamentoController::class,
+        'fornecedor' => FornecedoreController::class,
+        'foto' => FotoController::class,
+        'notaFiscal' => NotaFiscalController::class,
+        'produto' => ProdutoController::class,
+        'saida' => SaidaController::class,
+        'tipoProduto' => TipoProdutoController::class,
+        'venda' => VendaController::class,
+        'vendedora' => VendedoraController::class,
+    ]);
 });

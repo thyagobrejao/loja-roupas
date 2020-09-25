@@ -13,6 +13,8 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/sapp.css') }}">
+        <link rel="shortcut icon" href="{{ asset("favicon.ico") }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset("favicon.ico") }}" type="image/x-icon">
 
         <!-- Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>

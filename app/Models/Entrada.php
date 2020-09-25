@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Entrada extends Model
 {
     use HasFactory;
+
+    public function NotaFiscal() {
+        return $this->hasOne("App\Models\NotaFiscal", "nota_fiscals_id");
+    }
+
+    public function Produto() {
+        return $this->hasOne("App\Models\Produto", "produtos_id");
+    }
+
 }

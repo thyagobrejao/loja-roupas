@@ -17,7 +17,7 @@ class CreateNotaFiscalsTable extends Migration
             $table->id();
             $table->float("valor_total", 9,2);
             $table->date("data");
-            $table->string("caminho_foto", 60);
+            $table->string("caminho_foto", 60)->nullable();
             $table->timestamps();
         });
     }

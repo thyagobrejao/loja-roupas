@@ -16,7 +16,7 @@ class CreateVendedorasTable extends Migration
         Schema::create('vendedoras', function (Blueprint $table) {
             $table->id();
             $table->string("nome", 60);
-            $table->string("email", 120);
+            $table->string("email", 120)->nullable();
             $table->string("telefone", 12)->nullable();
             $table->timestamps();
         });
