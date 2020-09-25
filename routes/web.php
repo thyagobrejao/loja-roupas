@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DashBoardController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth:sanctum','verified']], function () {
     Route::get('/dashboard', [DashBoardController::class, 'index'])->name('dashboard');
+    Route::resources([
+        "clientes" => ClienteController::class,
+    ]);
 });
