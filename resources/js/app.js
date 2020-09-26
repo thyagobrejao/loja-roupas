@@ -72,6 +72,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 import {iconsSet as icons} from './../assets/icons/icons'
 
+import _ from 'lodash';
+Object.defineProperty(Vue.prototype, '$_', { value: _ });
+
+import VueAlertify from 'vue-alertify';
+Vue.use(VueAlertify);
+
 const app = document.getElementById('app');
 
 new Vue({

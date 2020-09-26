@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
@@ -33,11 +34,18 @@ class ClienteController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:60',
+            'email' => 'required|unique:clientes',
+        ]);
+
+        Cliente::create($request->all());
+
+        return Redirect::route('cliente.index');
     }
 
     /**
@@ -67,11 +75,18 @@ class ClienteController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:60',
+            'email' => 'required',
+        ]);
+
+        $cliente->update($request->all());
+
+        return Redirect::route('cliente.index');
     }
 
     /**

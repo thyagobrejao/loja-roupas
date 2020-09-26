@@ -19,16 +19,16 @@
                             pagination
                             :noItemsView="{noResults: 'Nenhum resultado encontrado.', noItems: 'Nenhuma Cliente Cadastrada'}"
                         >
-                            <template #show_details="{item, index}">
+                            <template #show_details="{item}">
                                 <td class="py-2">
                                     <CButton
                                         color="primary"
                                         variant="outline"
                                         square
                                         size="sm"
-                                        @click="toggleDetails(item, index)"
+                                        @click="alterar(item)"
                                     >
-                                        Detalhes
+                                        Alterar
                                     </CButton>
                                 </td>
                             </template>
@@ -40,23 +40,28 @@
                 <CCard>
                     <CCardHeader>Cadastrar Cliente</CCardHeader>
                     <CCardBody>
-                        <CRow>
-                            <CCol sm="12">
-                                <CInput
-                                    label="Nome"
-                                    placeholder="Nome da cliente..."
-                                />
-                            </CCol>
-                        </CRow>
+                        <cliente-form :data="{}"/>
                     </CCardBody>
                 </CCard>
             </CCol>
         </CRow>
+        <CModal
+            title="Alterar dados da cliente"
+            color="primary"
+            v-if="modal"
+            :show.sync="modal"
+        >
+            <cliente-form :data="atualData"/>
+            <template #footer>
+                <CButton @click="modal = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
     </the-container>
 </template>
 
 <script>
 import TheContainer from "../containers/TheContainer";
+import ClienteForm from "../Forms/ClienteForm";
 
 const fields = [
     { key: 'nome', label: 'Nome'},
@@ -79,11 +84,21 @@ export default {
     data () {
         return {
             fields,
+            atualData: {},
+            modal: false,
         }
+    },
+
+    methods: {
+        alterar: function(item) {
+            this.atualData = item;
+            this.modal = true;
+        },
     },
 
     components: {
         TheContainer,
+        ClienteForm,
     }
 }
 </script>
