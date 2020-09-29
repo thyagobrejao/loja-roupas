@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Vendedora;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class VendedoraController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $vendedoras = Vendedora::all();
+        return Inertia::render('Vendedoras', ["vendedoras" => $vendedoras]);
     }
 
     /**
@@ -31,11 +34,17 @@ class VendedoraController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:60',
+        ]);
+
+        Vendedora::create($request->all());
+
+        return Redirect::route('cliente.index');
     }
 
     /**
@@ -65,11 +74,17 @@ class VendedoraController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Vendedora  $vendedora
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Vendedora $vendedora)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:60',
+        ]);
+
+        $vendedora->update($request->all());
+
+        return Redirect::route('vendedora.index');
     }
 
     /**

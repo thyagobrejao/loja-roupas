@@ -12,6 +12,7 @@ use App\Http\Controllers\SaidaController;
 use App\Http\Controllers\TipoProdutoController;
 use App\Http\Controllers\VendaController;
 use App\Http\Controllers\VendedoraController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::group(['middleware' => ['auth:sanctum','verified']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', [DashBoardController::class, 'index'])->name('dashboard');
     Route::resources([
         'entrada' => EntradaController::class,
@@ -45,4 +46,12 @@ Route::group(['middleware' => ['auth:sanctum','verified']], function () {
         'venda' => VendaController::class,
         'vendedora' => VendedoraController::class,
     ]);
+
+    Route::get('images', function (Request $request) {
+        $path = $request->get("path");
+        $ret = storage_path("app/public") . '/' . $path;
+        if (file_exists($ret)) {
+            return response()->file($ret);
+        }
+    });
 });

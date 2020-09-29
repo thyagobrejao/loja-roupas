@@ -9,6 +9,8 @@ class Produto extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $appends = ['estoque', 'entradas', 'saidas', 'reservas'];
 
     public function Entrada()

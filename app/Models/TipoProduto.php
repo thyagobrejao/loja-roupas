@@ -9,6 +9,8 @@ class TipoProduto extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function Produto() {
         return $this->hasMany("App\Models\Produto", "tipos_id");
     }

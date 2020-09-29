@@ -89,6 +89,12 @@ export default {
         }
     },
 
+    mounted() {
+        this.$root.$on('fechar-modal-cliente', () => {
+            this.modal = false;
+        });
+    },
+
     methods: {
         alterar: function(item) {
             this.atualData = item;

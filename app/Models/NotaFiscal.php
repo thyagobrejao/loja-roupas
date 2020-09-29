@@ -9,6 +9,10 @@ class NotaFiscal extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    protected $dates = ["data"];
+
     public function Entrada() {
         return $this->belongsTo("App\Models\Entrada", "nota_fiscals_id");
     }

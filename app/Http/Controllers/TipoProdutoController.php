@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\TipoProduto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class TipoProdutoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $tipo = TipoProduto::all();
+        return Inertia::render('TipoProduto', ["tipo" => $tipo]);
     }
 
     /**
@@ -31,11 +34,17 @@ class TipoProdutoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|max:50',
+        ]);
+
+        TipoProduto::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -65,11 +74,17 @@ class TipoProdutoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\TipoProduto  $tipoProduto
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, TipoProduto $tipoProduto)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|max:50',
+        ]);
+
+        $tipoProduto->update($request->all());
+
+        return Redirect::route('tipoProduto.index');
     }
 
     /**

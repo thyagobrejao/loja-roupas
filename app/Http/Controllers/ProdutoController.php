@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedore;
 use App\Models\Produto;
+use App\Models\TipoProduto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class ProdutoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $produtos = Produto::with(['Foto', 'Fornecedore', 'TipoProduto'])->get();
+        $fornecedores = Fornecedore::select('nome', 'id')->get();
+        $tipos_produtos = TipoProduto::select('descricao', 'id')->get();
+
+        return Inertia::render('Produtos', [
+            "produtos" => $produtos,
+            "fornecedores" => $fornecedores,
+            "tipos_produtos" => $tipos_produtos
+        ]);
     }
 
     /**
@@ -31,11 +43,22 @@ class ProdutoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|max:255',
+            'cor' => 'required|max:20',
+            'codigo' => 'required|max:30',
+            'fornecedores_id' => 'required',
+            'tipos_id' => 'required',
+            'valor_sugerido' => 'required',
+        ]);
+
+        Produto::create($request->all());
+
+        return Redirect::route('produto.index');
     }
 
     /**
@@ -65,11 +88,22 @@ class ProdutoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Produto  $produto
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Produto $produto)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|max:255',
+            'cor' => 'required|max:20',
+            'codigo' => 'required|max:30',
+            'fornecedores_id' => 'required',
+            'tipos_id' => 'required',
+            'valor_sugerido' => 'required',
+        ]);
+
+        $produto->update($request->all());
+
+        return Redirect::route('produto.index');
     }
 
     /**

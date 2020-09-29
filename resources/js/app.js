@@ -78,6 +78,12 @@ Object.defineProperty(Vue.prototype, '$_', { value: _ });
 import VueAlertify from 'vue-alertify';
 Vue.use(VueAlertify);
 
+Vue.use(require('vue-moment'));
+
+
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+
 const app = document.getElementById('app');
 
 new Vue({

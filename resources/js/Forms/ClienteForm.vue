@@ -71,13 +71,13 @@
                 />
             </CCol>
         </CRow>
-        <CRow v-if="!isEmpty($page.errors)">
+        <CRow v-if="!isEmpty(formError)">
             <CCol sm="12">
                 <CAlert color="danger">
                     <h5>Erros encontrados</h5>
                     <ul>
-                        <li v-for="(erro, index) in $page.errors" :key="index">
-                            {{ erro }}
+                        <li v-for="error in formError">
+                            {{ error }}
                         </li>
                     </ul>
                 </CAlert>
@@ -88,9 +88,6 @@
                 <CAlert color="info" v-if="form.processing">
                     <CSpinner color="warning" grow/>
                     Carregando...
-                </CAlert>
-                <CAlert color="success" v-if="form.recentlySuccessful">
-                    Dados Salvos com Sucesso!
                 </CAlert>
                 <CButton color="success" @click="submit" :disabled="form.processing">
                     {{ nameAction }}
@@ -113,16 +110,37 @@ export default {
         return {
             ufs: ufs(),
             form: this.$inertia.form({
-                nome: this.data.nome,
-                email: this.data.email,
-                telefone: this.data.telefone,
-                tamanho: this.data.tamanho,
-                cidade: this.data.cidade,
-                cep: this.data.cep,
-                uf: this.data.uf,
-                endereco: this.data.endereco,
-            }),
+                    nome: this.data.nome,
+                    email: this.data.email,
+                    telefone: this.data.telefone,
+                    tamanho: this.data.tamanho,
+                    cidade: this.data.cidade,
+                    cep: this.data.cep,
+                    uf: this.data.uf,
+                    endereco: this.data.endereco,
+                },
+                {
+                    resetOnSuccess: true,
+                    preserveScroll: true
+                }),
             nameAction: 'Salvar',
+        }
+    },
+
+    computed: {
+        formSaved() {
+            return this.form.recentlySuccessful;
+        },
+        formError() {
+            return this.$page.errors;
+        },
+    },
+    watch: {
+        formSaved() {
+            if (this.formSaved) {
+                this.$alertify.success("Dados Salvos com Sucesso!");
+                this.$root.$emit('fechar-modal-cliente')
+            }
         }
     },
 
@@ -130,25 +148,20 @@ export default {
         if (!this.isEmpty(this.data)) {
             this.nameAction = "Alterar";
         }
+        this.$page.errors = {};
     },
 
     methods: {
         submit() {
             if (this.nameAction === 'Salvar') {
-                this.form.post('/cliente', {
-                    resetOnSuccess: true,
-                    preserveScroll: true
-                })
+                this.form.post('/cliente');
             } else {
-                this.form.put(`/cliente/${this.data.id}`, {
-                    resetOnSuccess: true,
-                    preserveScroll: true
-                })
+                this.form.put(`/cliente/${this.data.id}`);
             }
         },
         isEmpty(obj) {
             return this.$_.isEmpty(obj);
-        }
+        },
     },
 }
 </script>

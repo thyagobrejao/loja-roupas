@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\FormaPagamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class FormaPagamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $forma_pagamento = FormaPagamento::all();
+        return Inertia::render('FormaPagamento', ["forma_pagamento" => $forma_pagamento]);
     }
 
     /**
@@ -31,11 +34,18 @@ class FormaPagamentoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required',
+            'taxa' => 'required',
+        ]);
+
+        FormaPagamento::create($request->all());
+
+        return Redirect::route('formaPagamento.index');
     }
 
     /**
@@ -65,11 +75,18 @@ class FormaPagamentoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\FormaPagamento  $formaPagamento
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, FormaPagamento $formaPagamento)
     {
-        //
+        $request->validate([
+            'descricao' => 'required',
+            'taxa' => 'required',
+        ]);
+
+        $formaPagamento->update($request->all());
+
+        return Redirect::route('formaPagamento.index');
     }
 
     /**

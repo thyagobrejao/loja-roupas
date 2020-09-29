@@ -9,6 +9,8 @@ class Vendedora extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function Venda() {
         return $this->belongsTo("App\Models\Venda", "vendedoras_id");
     }
