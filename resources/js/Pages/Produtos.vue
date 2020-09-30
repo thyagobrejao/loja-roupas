@@ -21,14 +21,13 @@
                         >
                             <template #caminho_foto="{item}">
                                 <td class="py-2">
-                                    <CLink @click="abreModalNota(item.caminho_foto)" v-if="item.caminho_foto">
-                                        <CImg
-                                            width="200"
-                                            thumbnail
-                                            fluid
-                                            :src="`/images?path=${item.caminho_foto}`"
-                                        />
-                                    </CLink>
+                                    <CImg
+                                        v-if="item.caminho_foto"
+                                        width="200"
+                                        thumbnail
+                                        fluid
+                                        :src="`/images?path=${item.caminho_foto}`"
+                                    />
                                     <CBadge v-else color="info">Sem Foto</CBadge>
                                 </td>
                             </template>
@@ -77,13 +76,13 @@ import TheContainer from "../containers/TheContainer";
 import ProdutoForm from "../Forms/ProdutoForm";
 
 const fields = [
-    { key: 'descricao', label: 'Descrição'},
-    { key: 'tipo_produto', label: 'Tipo de Produto'},
-    { key: 'cor', label: 'Cor'},
-    { key: 'codigo', label: 'Código'},
-    { key: 'fornecedor_nome', label: 'Fornecedor'},
-    { key: 'valor_sugerido', label: 'Valor Sugerido'},
-    { key: 'caminho_foto', label: 'Foto'},
+    {key: 'descricao', label: 'Descrição'},
+    {key: 'tipo_produto', label: 'Tipo de Produto'},
+    {key: 'cor', label: 'Cor'},
+    {key: 'codigo', label: 'Código'},
+    {key: 'fornecedor_nome', label: 'Fornecedor'},
+    {key: 'valor_sugerido', label: 'Valor Sugerido'},
+    {key: 'caminho_foto', label: 'Foto'},
     {
         key: 'show_details',
         label: '',
@@ -97,7 +96,7 @@ export default {
 
     props: ['produtos', 'fornecedores', 'tipos_produtos'],
 
-    data () {
+    data() {
         return {
             fields,
             atualData: {},
@@ -125,7 +124,7 @@ export default {
     },
 
     methods: {
-        alterar: function(item) {
+        alterar: function (item) {
             this.atualData = item;
             this.modal = true;
         },

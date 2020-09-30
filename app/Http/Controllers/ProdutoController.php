@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fornecedore;
+use App\Models\Foto;
 use App\Models\Produto;
 use App\Models\TipoProduto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -56,7 +58,23 @@ class ProdutoController extends Controller
             'valor_sugerido' => 'required',
         ]);
 
-        Produto::create($request->all());
+        $produto = Produto::create($request->except(['fotos']));
+
+        $fotos = $request->file("fotos");
+
+        if($request->hasFile('fotos')) {
+            foreach ($fotos as $foto) {
+                $fotoModel = new Foto();
+                $path = "produtos/" . Carbon::now()->format("m-Y");
+                $name = time().'.'.$foto->getClientOriginalExtension();
+                $destinationPath = storage_path('/app/public/' . $path);
+                $foto->move($destinationPath, $name);
+                $fotoModel->caminho = $path . '/' . $name;
+                $fotoModel->produtos_id = $produto->id;
+                $fotoModel->save();
+            }
+        }
+
 
         return Redirect::route('produto.index');
     }
@@ -101,7 +119,22 @@ class ProdutoController extends Controller
             'valor_sugerido' => 'required',
         ]);
 
-        $produto->update($request->all());
+        $produto->update($request->except(['fotos']));
+
+        $fotos = $request->file("fotos");
+
+        if($request->hasFile('fotos')) {
+            foreach ($fotos as $foto) {
+                $fotoModel = new Foto();
+                $path = "produtos/" . Carbon::now()->format("m-Y");
+                $name = time().'.'.$foto->getClientOriginalExtension();
+                $destinationPath = storage_path('/app/public/' . $path);
+                $foto->move($destinationPath, $name);
+                $fotoModel->caminho = $path . '/' . $name;
+                $fotoModel->produtos_id = $produto->id;
+                $fotoModel->save();
+            }
+        }
 
         return Redirect::route('produto.index');
     }

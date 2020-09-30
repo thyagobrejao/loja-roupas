@@ -63,6 +63,7 @@
         <CRow>
             <CCol sm="12">
                 <CInput
+                    type="number"
                     label="Valor Sugerido"
                     placeholder="Valor sugerido do produto..."
                     v-model="form.valor_sugerido"
@@ -74,7 +75,7 @@
                 <CButton
                     color="success"
                     @click="modalFotos = true">
-                    Adicionar Fotos
+                    Fotos
                 </CButton>
             </CCol>
         </CRow>
@@ -123,6 +124,50 @@
                 <CButton @click="modalFornecedor = false" color="danger">Fechar</CButton>
             </template>
         </CModal>
+        <CModal
+            title="Fotos do produto"
+            color="primary"
+            :show.sync="modalFotos"
+            size="xl"
+        >
+            <div v-if="!isEmpty(data) && data.foto.length > 0">
+                <CRow>
+                    <CCol md="3" v-for="(foto, index) in data.foto" :key="index">
+                        <CImg
+                            thumbnail
+                            width="300"
+                            fluid
+                            :src="`/images?path=${foto.caminho}`"
+                        />
+                        <CButton color="danger" block>Apagar</CButton>
+                    </CCol>
+                </CRow>
+            </div>
+            <CAlert v-else color="info" class="text-center">
+                Nenhuma foto cadastrada
+            </CAlert>
+            <CRow class="mt-3">
+                <CCol sm="12">
+                    <CCard>
+                        <CCardHeader>
+                            <label for="foto" class="">Cadastrar Fotos</label>
+                        </CCardHeader>
+                        <CCardBody>
+                            <input
+                                id="foto"
+                                ref="file"
+                                type="file"
+                                class="form-control-file"
+                                multiple
+                                v-on:change="onChangeFileUpload()">
+                        </CCardBody>
+                    </CCard>
+                </CCol>
+            </CRow>
+            <template #footer>
+                <CButton @click="modalFotos = false" color="primary">Adicionar e Fechar</CButton>
+            </template>
+        </CModal>
     </div>
 </template>
 
@@ -146,6 +191,8 @@ export default {
                     cor: this.data.cor,
                     codigo: this.data.codigo,
                     valor_sugerido: this.data.valor_sugerido,
+                    fotos: [],
+                    _method: 'post'
                 },
                 {
                     resetOnSuccess: true,
@@ -194,14 +241,33 @@ export default {
             this.form.fornecedores_id = this.form.fornecedores_id.id;
             this.form.tipos_id = this.form.tipos_id.id;
             if (this.nameAction === 'Salvar') {
-                this.form.post('/produto');
+                this.form.post('/produto',
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                    );
             } else {
-                this.form.put(`/produto/${this.data.id}`);
+                this.form._method = 'put';
+                this.form.post(`/produto/${this.data.id}`,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                    );
             }
         },
         isEmpty(obj) {
             return this.$_.isEmpty(obj);
         },
+        onChangeFileUpload() {
+            for( var i = 0; i < this.$refs.file.files.length; i++ ){
+                let file = this.$refs.file.files[i];
+                this.form.fotos.push(file);
+            }
+        }
     },
 }
 </script>

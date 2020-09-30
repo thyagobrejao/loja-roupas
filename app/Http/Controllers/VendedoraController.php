@@ -44,7 +44,7 @@ class VendedoraController extends Controller
 
         Vendedora::create($request->all());
 
-        return Redirect::route('cliente.index');
+        return redirect()->back();
     }
 
     /**
