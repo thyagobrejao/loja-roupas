@@ -21,8 +21,8 @@ class ProdutoController extends Controller
     public function index()
     {
         $produtos = Produto::with(['Foto', 'Fornecedore', 'TipoProduto'])->get();
-        $fornecedores = Fornecedore::select('nome', 'id')->get();
-        $tipos_produtos = TipoProduto::select('descricao', 'id')->get();
+        $fornecedores = Fornecedore::pluck('nome', 'id');
+        $tipos_produtos = TipoProduto::pluck('descricao', 'id');
 
         return Inertia::render('Produtos', [
             "produtos" => $produtos,

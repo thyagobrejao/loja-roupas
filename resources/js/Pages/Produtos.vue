@@ -21,13 +21,17 @@
                         >
                             <template #caminho_foto="{item}">
                                 <td class="py-2">
-                                    <CImg
+                                    <CLink
                                         v-if="item.caminho_foto"
-                                        width="200"
-                                        thumbnail
-                                        fluid
-                                        :src="`/images?path=${item.caminho_foto}`"
-                                    />
+                                        @click="abreFotos(item)"
+                                    >
+                                        <CImg
+                                            width="200"
+                                            thumbnail
+                                            fluid
+                                            :src="`/images?path=${item.caminho_foto}`"
+                                        />
+                                    </CLink>
                                     <CBadge v-else color="info">Sem Foto</CBadge>
                                 </td>
                             </template>
@@ -68,6 +72,32 @@
                 <CButton @click="modal = false" color="danger">Fechar</CButton>
             </template>
         </CModal>
+        <CModal
+            title="Fotos do produto"
+            color="primary"
+            v-if="modalFotos"
+            :show.sync="modalFotos"
+            size="xl"
+        >
+            <CRow v-for="(foto, index) in atualData.foto" :key="index">
+                <CImg
+                    fluid
+                    block
+                    align="center"
+                    :src="`/images?path=${foto.caminho}`"
+                />
+                <inertia-link
+                    :href="`/foto/${foto.id}`"
+                    method="delete"
+                    class="btn btn-danger btn-block"
+                >
+                    Apagar
+                </inertia-link>
+            </CRow>
+            <template #footer>
+                <CButton @click="modalFotos = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
     </the-container>
 </template>
 
@@ -101,6 +131,7 @@ export default {
             fields,
             atualData: {},
             modal: false,
+            modalFotos: false,
         }
     },
 
@@ -127,6 +158,10 @@ export default {
         alterar: function (item) {
             this.atualData = item;
             this.modal = true;
+        },
+        abreFotos: function (item) {
+            this.atualData = item;
+            this.modalFotos = true;
         },
     },
 

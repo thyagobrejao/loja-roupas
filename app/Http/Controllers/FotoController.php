@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class FotoController extends Controller
 {
@@ -76,10 +77,13 @@ class FotoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Foto  $foto
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Foto $foto)
     {
-        //
+        File::delete(storage_path("/app/public/" . $foto->caminho));
+        $foto->delete();
+
+        return redirect()->back();
     }
 }

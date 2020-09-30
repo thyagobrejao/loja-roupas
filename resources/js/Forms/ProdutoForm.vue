@@ -3,12 +3,9 @@
         <CRow>
             <CCol sm="12">
                 <label>Tipo de Produto</label>
-                <v-select
-                    label="descricao"
-                    :options="tipos_produtos"
-                    autocomplete="on"
-                    v-model="form.tipos_id"
-                />
+                <select v-model="form.tipos_id" class="form-control">
+                    <option v-for="(tipo, index) in tipos_produtos" :value="index">{{ tipo }}</option>
+                </select>
                 <CButton
                     color="success"
                     @click="modalProduto = true"
@@ -20,11 +17,9 @@
         <CRow>
             <CCol sm="12">
                 <label>Fornecedor</label>
-                <v-select
-                    label="nome"
-                    :options="fornecedores"
-                    autocomplete="on" v-model="form.fornecedores_id"
-                />
+                <select v-model="form.fornecedores_id" class="form-control">
+                    <option v-for="(fornecedor, index) in fornecedores" :value="index">{{ fornecedor }}</option>
+                </select>
                 <CButton
                     color="success"
                     @click="modalFornecedor = true"
@@ -139,7 +134,13 @@
                             fluid
                             :src="`/images?path=${foto.caminho}`"
                         />
-                        <CButton color="danger" block>Apagar</CButton>
+                        <inertia-link
+                            :href="`/foto/${foto.id}`"
+                            method="delete"
+                            class="btn btn-danger btn-block"
+                        >
+                            Apagar
+                        </inertia-link>
                     </CCol>
                 </CRow>
             </div>
@@ -238,8 +239,6 @@ export default {
 
     methods: {
         submit() {
-            this.form.fornecedores_id = this.form.fornecedores_id.id;
-            this.form.tipos_id = this.form.tipos_id.id;
             if (this.nameAction === 'Salvar') {
                 this.form.post('/produto',
                     {
