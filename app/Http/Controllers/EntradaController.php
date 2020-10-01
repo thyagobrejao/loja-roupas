@@ -3,18 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entrada;
+use App\Models\NotaFiscal;
+use App\Models\Produto;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EntradaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $entradas = Entrada::with(['Produto.Foto'])->get();
+        $notas_fiscais = NotaFiscal::all();
+        $produtos = Produto::with(['Foto'])->get();
+        return Inertia::render('Entradas',
+            [
+                "entradas" => $entradas,
+                "notas_fiscais" => $notas_fiscais,
+                "produtos" => $produtos
+            ]
+        );
     }
 
     /**
