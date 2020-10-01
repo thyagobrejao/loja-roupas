@@ -48,6 +48,30 @@
                                     </CButton>
                                 </td>
                             </template>
+                            <template #ativo="{item}">
+                                <td class="py-2 text-center">
+                                    <div v-if="item.ativo === 1">
+                                        <CBadge color="success">Sim</CBadge>
+                                        <inertia-link
+                                            :href="`/produto/ativo/${item.id}`"
+                                            class="btn btn-danger btn-sm"
+                                            method="put"
+                                        >
+                                            Desativar
+                                        </inertia-link>
+                                    </div>
+                                    <div v-else>
+                                        <CBadge color="warning">Não</CBadge>
+                                        <inertia-link
+                                            :href="`/produto/ativo/${item.id}`"
+                                            class="btn btn-success btn-sm"
+                                            method="put"
+                                        >
+                                            Ativar
+                                        </inertia-link>
+                                    </div>
+                                </td>
+                            </template>
                         </CDataTable>
                     </CCardBody>
                 </CCard>
@@ -113,6 +137,7 @@ const fields = [
     {key: 'fornecedor_nome', label: 'Fornecedor'},
     {key: 'valor_sugerido', label: 'Valor Sugerido'},
     {key: 'caminho_foto', label: 'Foto'},
+    {key: 'ativo', label: 'Ativo',},
     {
         key: 'show_details',
         label: '',

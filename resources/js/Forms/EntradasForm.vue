@@ -34,7 +34,7 @@
                             :key="index"
                             @click="fotoNota(nota)"
                     >
-                        {{ nota.data }} - {{ nota.valor_total }}
+                        {{ formataData(nota.data) }} - R$ {{ nota.valor_total }}
                     </option>
                 </select>
                 <CImg
@@ -173,6 +173,9 @@ export default {
                 this.nota_foto = null;
             }
         },
+        formataData(date) {
+            return moment(date).format("DD/MM/YYYY");
+        }
     },
 }
 </script>

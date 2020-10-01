@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         'vendedora' => VendedoraController::class,
     ]);
 
+    Route::put('/produto/ativo/{produto}', [ProdutoController::class, 'ativo'])->name('produto.ativo');
+
     Route::get('images', function (Request $request) {
         $path = $request->get("path");
         $ret = storage_path("app/public") . '/' . $path;

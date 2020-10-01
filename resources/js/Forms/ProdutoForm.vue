@@ -30,6 +30,21 @@
         </CRow>
         <CRow>
             <CCol sm="12">
+                <label>Produto Ativo</label>
+                <select v-model="form.ativo" class="form-control">
+                    <option value="1">Sim</option>
+                    <option value="0">Não</option>
+                </select>
+                <CButton
+                    color="success"
+                    @click="modalProduto = true"
+                    class="mt-2">
+                    Cadastrar Produto
+                </CButton>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
                 <CInput
                     label="Descrição"
                     placeholder="Descricao do produto..."
@@ -192,6 +207,7 @@ export default {
                     cor: this.data.cor,
                     codigo: this.data.codigo,
                     valor_sugerido: this.data.valor_sugerido,
+                    ativo: this.data.ativo,
                     fotos: [],
                     _method: 'post'
                 },

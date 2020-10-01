@@ -19,7 +19,7 @@ class EntradaController extends Controller
     {
         $entradas = Entrada::with(['Produto.Foto'])->get();
         $notas_fiscais = NotaFiscal::all();
-        $produtos = Produto::with(['Foto'])->get();
+        $produtos = Produto::with(['Foto'])->where('ativo', true)->get();
         return Inertia::render('Entradas',
             [
                 "entradas" => $entradas,

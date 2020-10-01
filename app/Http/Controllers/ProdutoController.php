@@ -20,7 +20,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::with(['Foto', 'Fornecedore', 'TipoProduto'])->get();
+        $produtos = Produto::with(['Foto', 'Fornecedore', 'TipoProduto'])->orderBy("ativo","DESC")->get();
         $fornecedores = Fornecedore::pluck('nome', 'id');
         $tipos_produtos = TipoProduto::pluck('descricao', 'id');
 
@@ -148,5 +148,16 @@ class ProdutoController extends Controller
     public function destroy(Produto $produto)
     {
         //
+    }
+
+    /**
+     * @param Produto $produto
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function ativo(Produto $produto) {
+        $produto->ativo = !$produto->ativo;
+        $produto->save();
+
+        return redirect()->back();
     }
 }
