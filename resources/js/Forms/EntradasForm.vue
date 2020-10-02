@@ -73,6 +73,14 @@
         </CRow>
         <CRow>
             <CCol sm="12">
+                <label>Status</label>
+                <select class="form-control" v-model="form.status">
+                    <option v-for="(value, index) in status_list" :key="index" :value="index">{{ value }}</option>
+                </select>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
                 <CInput
                     label="Valor Unitário"
                     placeholder="Valor Unitário do produto..."
@@ -122,7 +130,7 @@
 <script>
 
 import NotaFiscalForm from "./NotaFiscalForm";
-import {tamanhos} from "../../assets/constants"
+import {tamanhos, statusEntrada} from "../../assets/constants"
 
 export default {
     name: "EntradasForm",
@@ -148,6 +156,7 @@ export default {
             nota_foto: null,
             modalNota: false,
             tamanhos_list: tamanhos(),
+            status_list: statusEntrada(),
         }
     },
 
@@ -163,7 +172,9 @@ export default {
         formSaved() {
             if (this.formSaved) {
                 this.$alertify.success("Dados Salvos com Sucesso!");
-                this.$root.$emit('fechar-modal-entrada')
+                this.prod_foto = null;
+                this.nota_foto = null;
+                this.$root.$emit('fechar-modal-entrada');
             }
         }
     },
@@ -178,9 +189,9 @@ export default {
     methods: {
         submit() {
             if (this.nameAction === 'Salvar') {
-                this.form.post('/vendedora');
+                this.form.post('/entrada');
             } else {
-                this.form.put(`/vendedora/${this.data.id}`);
+                this.form.put(`/entrada/${this.data.id}`);
             }
         },
         isEmpty(obj) {

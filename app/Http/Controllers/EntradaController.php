@@ -17,7 +17,7 @@ class EntradaController extends Controller
      */
     public function index()
     {
-        $entradas = Entrada::with(['Produto.Foto'])->get();
+        $entradas = Entrada::with(['Produto.Foto', 'Produto.TipoProduto'])->get();
         $notas_fiscais = NotaFiscal::all();
         $produtos = Produto::with(['Foto'])->where('ativo', true)->get();
         return Inertia::render('Entradas',
@@ -43,11 +43,21 @@ class EntradaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'quantidade' => 'required',
+            'tamanho' => 'required',
+            'valor_unitario' => 'required',
+            'status' => 'required',
+            'produtos_id' => 'required',
+        ]);
+
+        Entrada::create($request->all());
+
+        return redirect()->back();
     }
 
     /**

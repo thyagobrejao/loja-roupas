@@ -9,6 +9,8 @@ class Saida extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function Produto() {
         return $this->hasOne("App\Models\Produto", "produtos_id");
     }

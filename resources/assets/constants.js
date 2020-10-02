@@ -53,3 +53,11 @@ exports.tamanhos = function() {
         "XG",
     ]
 }
+
+exports.statusEntrada = function() {
+    return {
+        1: 'Produto Novo',
+        2: 'Veio na troca de outra',
+        3: 'Veio de reserva',
+    }
+}
