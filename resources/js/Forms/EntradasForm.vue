@@ -55,9 +55,20 @@
         <CRow>
             <CCol sm="12">
                 <CInput
-                    label="Telefone"
-                    placeholder="Telefone da vendedora..."
-                    v-model="form.telefone"
+                    label="Quantidade"
+                    placeholder="Quantidade de produto..."
+                    type="number"
+                    v-model="form.quantidade"
+                />
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
+                <CInput
+                    label="Valor Unitário"
+                    placeholder="Valor Unitário de produto..."
+                    type="number"
+                    v-model="form.valor_unitario"
                 />
             </CCol>
         </CRow>
@@ -111,7 +122,10 @@ export default {
             form: this.$inertia.form({
                     produtos_id: this.data.produtos_id,
                     nota_fiscals_id: this.data.nota_fiscals_id,
-                    telefone: this.data.telefone,
+                    quantidade: this.data.quantidade,
+                    tamanho: this.data.tamanho,
+                    valor_unitario: this.data.valor_unitario,
+                    status: this.data.status,
                 },
                 {
                     resetOnSuccess: true,

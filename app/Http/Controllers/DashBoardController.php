@@ -10,7 +10,7 @@ class DashBoardController extends Controller
 {
     public function index() {
 
-        $estoque = Produto::with(['TipoProduto', 'Fornecedore', 'Entrada', 'Saida'])->get();
+        $estoque = Produto::with(['Foto', 'TipoProduto', 'Fornecedore', 'Entrada', 'Saida'])->get();
 
         $entradas = ['qts' => 0, 'valor' => 0];
         $saidas = ['qts' => 0, 'valor' => 0];
