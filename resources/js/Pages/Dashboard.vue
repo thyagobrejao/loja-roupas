@@ -108,7 +108,6 @@
 
 <script>
     import TheContainer from "../containers/TheContainer";
-    import {tamanhos} from "../../assets/constants"
 
     const fields = [
         {key: 'codigo', label: 'Código'},
@@ -137,7 +136,6 @@
                 fields,
                 atualData: {},
                 modalFotos: false,
-                tamanhos_list: tamanhos(),
             }
         },
 

@@ -64,10 +64,20 @@
         </CRow>
         <CRow>
             <CCol sm="12">
+                <label>Tamanho</label>
+                <select class="form-control" v-model="form.tamanho">
+                    <option value="">Selecione o tamanho</option>
+                    <option v-for="(u, i) in tamanhos_list" :key="i" :value="u">{{ u }}</option>
+                </select>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
                 <CInput
                     label="Valor Unitário"
-                    placeholder="Valor Unitário de produto..."
+                    placeholder="Valor Unitário do produto..."
                     type="number"
+                    step="0.01"
                     v-model="form.valor_unitario"
                 />
             </CCol>
@@ -112,6 +122,8 @@
 <script>
 
 import NotaFiscalForm from "./NotaFiscalForm";
+import {tamanhos} from "../../assets/constants"
+
 export default {
     name: "EntradasForm",
     components: {NotaFiscalForm},
@@ -135,6 +147,7 @@ export default {
             prod_foto: null,
             nota_foto: null,
             modalNota: false,
+            tamanhos_list: tamanhos(),
         }
     },
 

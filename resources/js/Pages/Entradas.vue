@@ -69,7 +69,6 @@
 
 <script>
 import TheContainer from "../containers/TheContainer";
-import VendedorasForm from "../Forms/VendedorasForm";
 import EntradasForm from "../Forms/EntradasForm";
 
 const fields = [
