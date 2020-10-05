@@ -11,7 +11,13 @@ class Produto extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['estoque', 'entradas', 'saidas', 'reservas'];
+    protected $appends = [
+        'estoque',
+        'entradas',
+        'saidas',
+        'reservas',
+        'tamanhos'
+    ];
 
     public function Entrada()
     {
@@ -65,6 +71,41 @@ class Produto extends Model
 
     public function getReservasAttribute()
     {
-        return $this->Saida()->where("reserva", true)->count();
+        $reservas = $this->Saida()->where("reserva", true)->get();
+
+        $tamanhos = [];
+
+        foreach ($reservas as $reserva) {
+            if (!array_key_exists($reserva->tamanho, $tamanhos)) {
+                $tamanhos[$reserva->tamanho] = 0;
+            }
+            $tamanhos[$reserva->tamanho] += $reserva->quantidade;
+        }
+
+        return $tamanhos;
+    }
+
+    public function getTamanhosAttribute()
+    {
+        $entradas = $this->Entrada()->get();
+        $saidas = $this->Saida()->get();
+
+        $tamanhos = [];
+
+        foreach ($entradas as $entrada) {
+            if (!array_key_exists($entrada->tamanho, $tamanhos)) {
+                $tamanhos[$entrada->tamanho] = 0;
+            }
+            $tamanhos[$entrada->tamanho] += $entrada->quantidade;
+        }
+
+        foreach ($saidas as $saida) {
+            if (!array_key_exists($saida->tamanho, $tamanhos)) {
+                $tamanhos[$saida->tamanho] = 0;
+            }
+            $tamanhos[$saida->tamanho] -= $saida->quantidade;
+        }
+
+        return $tamanhos;
     }
 }

@@ -135,7 +135,7 @@ const fields = [
     {key: 'cor', label: 'Cor'},
     {key: 'codigo', label: 'Código'},
     {key: 'fornecedor_nome', label: 'Fornecedor'},
-    {key: 'valor_sugerido', label: 'Valor Sugerido'},
+    {key: 'valor_sugerido', label: 'Valor Para Venda'},
     {key: 'caminho_foto', label: 'Foto'},
     {key: 'ativo', label: 'Ativo',},
     {

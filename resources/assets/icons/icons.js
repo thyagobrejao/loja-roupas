@@ -84,7 +84,8 @@ import {
     cilMoodVeryGood,
     cilMoney,
     cilSitemap,
-    cilMug
+    cilMug,
+    cilTrash,
 
 } from '@coreui/icons'
 import {logo} from './logo'
@@ -145,7 +146,8 @@ export const iconsSet = Object.assign(
         cilMoodVeryGood,
         cilMoney,
         cilSitemap,
-        cilMug
+        cilMug,
+        cilTrash,
     },
     {
         cifUs,

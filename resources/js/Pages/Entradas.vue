@@ -114,6 +114,7 @@ import TheContainer from "../containers/TheContainer";
 import EntradasForm from "../Forms/EntradasForm";
 
 const fields = [
+    { key: 'codigo', label: 'Código'},
     { key: 'descricao', label: 'Descrição'},
     { key: 'tipo_produto', label: 'Tipo'},
     { key: 'cor', label: 'Cor'},
@@ -146,6 +147,7 @@ export default {
     computed: {
         entradasFormat: function () {
             return this.entradas.map(item => {
+                item.codigo = item.produto.codigo;
                 item.descricao = item.produto.descricao;
                 item.tipo_produto = item.produto.tipo_produto.descricao;
                 item.cor = item.produto.cor;

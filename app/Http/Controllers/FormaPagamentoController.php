@@ -45,7 +45,7 @@ class FormaPagamentoController extends Controller
 
         FormaPagamento::create($request->all());
 
-        return Redirect::route('formaPagamento.index');
+        return redirect()->back();
     }
 
     /**

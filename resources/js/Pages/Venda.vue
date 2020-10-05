@@ -3,10 +3,10 @@
         <CRow>
             <CCol md="8">
                 <CCard>
-                    <CCardHeader>Vendedoras</CCardHeader>
+                    <CCardHeader>Vendas</CCardHeader>
                     <CCardBody>
                         <CDataTable
-                            :items="vendedoras"
+                            :items="vendasFormat"
                             :fields="fields"
                             column-filter
                             table-filter
@@ -17,7 +17,7 @@
                             hover
                             sorter
                             pagination
-                            :noItemsView="{noResults: 'Nenhum resultado encontrado.', noItems: 'Nenhuma Vendedora Cadastrada'}"
+                            :noItemsView="{noResults: 'Nenhum resultado encontrado.', noItems: 'Nenhuma Venda Cadastrada'}"
                         >
                             <template #show_details="{item}">
                                 <td class="py-2">
@@ -38,20 +38,32 @@
             </CCol>
             <CCol md="4">
                 <CCard>
-                    <CCardHeader>Cadastrar Vendedora</CCardHeader>
+                    <CCardHeader>Cadastrar Nova Venda</CCardHeader>
                     <CCardBody>
-                        <vendedoras-form :data="{}"/>
+                        <vendas-form
+                            :data="{}"
+                            :clientes="clientes"
+                            :vendedoras="vendedoras"
+                            :produtos="produtos"
+                            :formas_pagamento="formas_pagamento"
+                        />
                     </CCardBody>
                 </CCard>
             </CCol>
         </CRow>
         <CModal
-            title="Alterar dados da Vendedora"
+            title="Alterar dados da Venda"
             color="primary"
             v-if="modal"
             :show.sync="modal"
         >
-            <vendedoras-form :data="atualData"/>
+            <vendas-form
+                :data="atualData"
+                :clientes="clientes"
+                :vendedoras="vendedoras"
+                :produtos="produtos"
+                :formas_pagamento="formas_pagamento"
+            />
             <template #footer>
                 <CButton @click="modal = false" color="danger">Fechar</CButton>
             </template>
@@ -61,12 +73,13 @@
 
 <script>
 import TheContainer from "../containers/TheContainer";
-import VendedorasForm from "../Forms/VendedorasForm";
+import VendasForm from "../Forms/VendaForm";
 
 const fields = [
-    { key: 'nome', label: 'Nome'},
-    { key: 'email', label: 'Email'},
-    { key: 'telefone', label: 'Telefone'},
+    {key: 'id', label: 'Cod Venda'},
+    {key: 'cliente', label: 'Cliente'},
+    {key: 'vendedora', label: 'Vendedora'},
+    {key: 'forma_pagamento', label: 'Forma de Pagamento'},
     {
         key: 'show_details',
         label: '',
@@ -76,11 +89,11 @@ const fields = [
 ]
 
 export default {
-    name: "Vendedoras",
+    name: "Vendas",
 
-    props: ['vendedoras'],
+    props: ['vendas', 'clientes', 'vendedoras', 'formas_pagamento', 'produtos'],
 
-    data () {
+    data() {
         return {
             fields,
             atualData: {},
@@ -88,21 +101,32 @@ export default {
         }
     },
 
+    computed: {
+        vendasFormat: function () {
+            return this.vendas.map(item => {
+                item.cliente = item.cliente.nome;
+                item.vendedora = item.vendedora.nome;
+                item.forma_pagamento = item.forma_pagamento.descricao;
+                return item;
+            });
+        }
+    },
+
     mounted() {
-        this.$root.$on('fechar-modal-vendedora', () => {
+        this.$root.$on('fechar-modal-vendas', () => {
             this.modal = false;
         });
     },
 
     methods: {
-        alterar: function(item) {
+        alterar: function (item) {
             this.atualData = item;
             this.modal = true;
         },
     },
 
     components: {
-        VendedorasForm,
+        VendasForm,
         TheContainer,
     }
 }

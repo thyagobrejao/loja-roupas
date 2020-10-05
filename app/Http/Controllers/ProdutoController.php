@@ -66,7 +66,7 @@ class ProdutoController extends Controller
             foreach ($fotos as $foto) {
                 $fotoModel = new Foto();
                 $path = "produtos/" . Carbon::now()->format("m-Y");
-                $name = time().'.'.$foto->getClientOriginalExtension();
+                $name = rand(111,99999) . '-' . time().'.'.$foto->getClientOriginalExtension();
                 $destinationPath = storage_path('/app/public/' . $path);
                 $foto->move($destinationPath, $name);
                 $fotoModel->caminho = $path . '/' . $name;
@@ -127,7 +127,7 @@ class ProdutoController extends Controller
             foreach ($fotos as $foto) {
                 $fotoModel = new Foto();
                 $path = "produtos/" . Carbon::now()->format("m-Y");
-                $name = time().'.'.$foto->getClientOriginalExtension();
+                $name = rand(111,99999) . '-' . time().'.'.$foto->getClientOriginalExtension();
                 $destinationPath = storage_path('/app/public/' . $path);
                 $foto->move($destinationPath, $name);
                 $fotoModel->caminho = $path . '/' . $name;

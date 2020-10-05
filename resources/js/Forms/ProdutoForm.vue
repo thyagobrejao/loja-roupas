@@ -10,7 +10,7 @@
                     color="success"
                     @click="modalProduto = true"
                     class="mt-2">
-                    Cadastrar Produto
+                    Cadastrar Tipo de Produto
                 </CButton>
             </CCol>
         </CRow>
@@ -35,12 +35,6 @@
                     <option value="1">Sim</option>
                     <option value="0">Não</option>
                 </select>
-                <CButton
-                    color="success"
-                    @click="modalProduto = true"
-                    class="mt-2">
-                    Cadastrar Produto
-                </CButton>
             </CCol>
         </CRow>
         <CRow>
@@ -74,8 +68,8 @@
             <CCol sm="12">
                 <CInput
                     type="number"
-                    label="Valor Sugerido"
-                    placeholder="Valor sugerido do produto..."
+                    label="Valor Para Venda"
+                    placeholder="Valor para do produto..."
                     v-model="form.valor_sugerido"
                 />
             </CCol>

@@ -25,35 +25,6 @@
         </CRow>
         <CRow>
             <CCol sm="12">
-                <label>Nota fiscal</label>
-                <select v-model="form.nota_fiscals_id"
-                        class="form-control"
-                >
-                    <option v-for="(nota, index) in notas_fiscais"
-                            :value="nota.id"
-                            :key="index"
-                            @click="fotoNota(nota)"
-                    >
-                        {{ formataData(nota.data) }} - R$ {{ nota.valor_total }}
-                    </option>
-                </select>
-                <CImg
-                    v-if="nota_foto"
-                    thumbnail
-                    width="300"
-                    fluid
-                    :src="`/images?path=/notas/${nota_foto}`"
-                />
-                <CButton
-                    color="success"
-                    @click="modalNota = true"
-                    class="mt-2">
-                    Cadastrar Nota
-                </CButton>
-            </CCol>
-        </CRow>
-        <CRow>
-            <CCol sm="12">
                 <CInput
                     label="Quantidade"
                     placeholder="Quantidade de produto..."
@@ -82,11 +53,11 @@
         <CRow>
             <CCol sm="12">
                 <CInput
-                    label="Valor Unitário"
-                    placeholder="Valor Unitário do produto..."
+                    label="Valor de Venda"
+                    placeholder="Valor de venda do produto..."
                     type="number"
                     step="0.01"
-                    v-model="form.valor_unitario"
+                    v-model="form.valor_venda"
                 />
             </CCol>
         </CRow>
@@ -144,7 +115,7 @@ export default {
                     nota_fiscals_id: this.data.nota_fiscals_id,
                     quantidade: this.data.quantidade,
                     tamanho: this.data.tamanho,
-                    valor_unitario: this.data.valor_unitario,
+                    valor_unitario: this.data.valor_venda,
                     status: this.data.status,
                 },
                 {

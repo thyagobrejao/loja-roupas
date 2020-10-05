@@ -2,28 +2,110 @@
     <div>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    label="Nome"
-                    placeholder="Nome da Vendedora..."
-                    v-model="form.nome"
-                />
+                <label>Vendedora</label>
+                <select v-model="form.vendedoras_id"
+                        class="form-control"
+                >
+                    <option v-for="(vendedora, index) in vendedoras"
+                            :value="vendedora.id"
+                            :key="index"
+                    >
+                        {{ vendedora.nome }}
+                    </option>
+                </select>
+                <CButton
+                    color="success"
+                    @click="modalVendedora = true"
+                    class="mt-2">
+                    Cadastrar Vendedora
+                </CButton>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
+                <label>Cliente</label>
+                <select v-model="form.clientes_id"
+                        class="form-control"
+                >
+                    <option v-for="(cliente, index) in clientes"
+                            :value="cliente.id"
+                            :key="index"
+                    >
+                        {{ cliente.nome }} - {{ cliente.telefone }}
+                    </option>
+                </select>
+                <CButton
+                    color="success"
+                    @click="modalCliente = true"
+                    class="mt-2">
+                    Cadastrar Cliente
+                </CButton>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol sm="12">
+                <label>Forma de Pagamento</label>
+                <select v-model="form.formas_pagamentos_id"
+                        class="form-control"
+                >
+                    <option v-for="(pagamento, index) in formas_pagamento"
+                            :value="pagamento.id"
+                            :key="index"
+                    >
+                        {{ pagamento.descricao }} - {{ pagamento.taxa }} %
+                    </option>
+                </select>
+                <CButton
+                    color="success"
+                    @click="modalPagamento = true"
+                    class="mt-2">
+                    Cadastrar Forma de Pagamento
+                </CButton>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <hr/>
+                <h4>Produtos</h4>
+                <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                    <tr>
+                        <th>Cod</th>
+                        <th>Desc</th>
+                        <th>Qtd</th>
+                        <th>X</th>
+                    </tr>
+                    </thead>
+                    <tbody v-if="!isEmpty(form.saidas)">
+                    <tr v-for="(prod, index) in form.saidas" :key="index">
+                        <td>{{ prod.codigo }}</td>
+                        <td>{{ prod.descricao }}</td>
+                        <td>{{ prod.quantidade }}</td>
+                        <td>
+                            <CButton color="danger">
+                                <CIcon name="cil-trash"/>
+                            </CButton>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <CButton
+                    color="primary"
+                    class="mt-2"
+                    @click="modalSaida = true"
+                >
+                    Adicionar Produto
+                </CButton>
+                <hr/>
             </CCol>
         </CRow>
         <CRow>
             <CCol sm="12">
                 <CInput
-                    label="E-mail"
-                    placeholder="E-mail da vendedora..."
-                    v-model="form.email"
-                />
-            </CCol>
-        </CRow>
-        <CRow>
-            <CCol sm="12">
-                <CInput
-                    label="Telefone"
-                    placeholder="Telefone da vendedora..."
-                    v-model="form.telefone"
+                    type="number"
+                    label="Desconto"
+                    placeholder="Desconto em percentagem..."
+                    v-model="form.desconto"
                 />
             </CCol>
         </CRow>
@@ -50,28 +132,82 @@
                 </CButton>
             </CCol>
         </CRow>
+        <CModal
+            title="Cadastrar Vendedora"
+            color="primary"
+            v-if="modalVendedora"
+            :show.sync="modalVendedora"
+        >
+            <vendedoras-form :data="{}"/>
+            <template #footer>
+                <CButton @click="modalVendedora = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
+        <CModal
+            title="Cadastrar Cliente"
+            color="primary"
+            v-if="modalCliente"
+            :show.sync="modalCliente"
+        >
+            <cliente-form :data="{}"/>
+            <template #footer>
+                <CButton @click="modalCliente = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
+        <CModal
+            title="Cadastrar Forma de Pagamento"
+            color="primary"
+            v-if="modalPagamento"
+            :show.sync="modalPagamento"
+        >
+            <forma-pagamento-form :data="{}"/>
+            <template #footer>
+                <CButton @click="modalPagamento = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
+        <CModal
+            title="Adicionar Produto"
+            color="primary"
+            v-if="modalSaida"
+            :show.sync="modalSaida"
+        >
+            <saida-form :data="{}" :produtos="produtos"/>
+            <template #footer>
+                <CButton @click="modalSaida = false" color="danger">Fechar</CButton>
+            </template>
+        </CModal>
     </div>
 </template>
 
 <script>
 
+import VendedorasForm from "./VendedorasForm";
+import ClienteForm from "./ClienteForm";
+import FormaPagamentoForm from "./FormaPagamentoForm";
+import SaidaForm from "./SaidaForm";
 export default {
-    name: "VendedorasForm",
-
-    props: ['data'],
+    name: "VendasForm",
+    components: {FormaPagamentoForm, ClienteForm, VendedorasForm, SaidaForm},
+    props: ['data', 'clientes', 'vendedoras', 'formas_pagamento', 'produtos'],
 
     data() {
         return {
             form: this.$inertia.form({
-                    nome: this.data.nome,
-                    email: this.data.email,
-                    telefone: this.data.telefone,
+                    vendedoras_id: this.data.vendedoras_id,
+                    clientes_id: this.data.clientes_id,
+                    formas_pagamentos_id: this.data.formas_pagamentos_id,
+                    desconto: this.data.desconto,
+                    saidas: [],
                 },
                 {
                     resetOnSuccess: true,
                     preserveScroll: true
                 }),
             nameAction: 'Salvar',
+            modalVendedora: false,
+            modalCliente: false,
+            modalPagamento: false,
+            modalSaida: false,
         }
     },
 
@@ -87,7 +223,7 @@ export default {
         formSaved() {
             if (this.formSaved) {
                 this.$alertify.success("Dados Salvos com Sucesso!");
-                this.$root.$emit('fechar-modal-vendedora')
+                this.$root.$emit('fechar-modal-vendas')
             }
         }
     },
@@ -97,14 +233,25 @@ export default {
             this.nameAction = "Alterar";
         }
         this.$page.errors = {};
+
+        this.$root.$on('fechar-modal-cliente', () => {
+            this.modalCliente = false;
+        });
+
+        this.$root.$on('fechar-modal-vendedora', () => {
+            this.modalVendedora = false;
+        });
+        this.$root.$on('fechar-modal-forma-pagamento', () => {
+            this.modalPagamento = false;
+        });
     },
 
     methods: {
         submit() {
             if (this.nameAction === 'Salvar') {
-                this.form.post('/vendedora');
+                this.form.post('/venda');
             } else {
-                this.form.put(`/vendedora/${this.data.id}`);
+                this.form.put(`/venda/${this.data.id}`);
             }
         },
         isEmpty(obj) {

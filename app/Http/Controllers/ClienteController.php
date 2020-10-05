@@ -45,7 +45,7 @@ class ClienteController extends Controller
 
         Cliente::create($request->all());
 
-        return Redirect::route('cliente.index');
+        return redirect()->back();
     }
 
     /**

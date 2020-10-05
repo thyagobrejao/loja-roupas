@@ -32,25 +32,18 @@ exports.ufs = function() {
 
 exports.tamanhos = function() {
     return [
+        "34",
         "36",
-        "37",
         "38",
-        "39",
         "40",
-        "41",
         "42",
-        "43",
         "44",
-        "45",
         "46",
-        "47",
-        "48",
         "PP",
         "P",
         "M",
         "G",
         "GG",
-        "XG",
     ]
 }
 

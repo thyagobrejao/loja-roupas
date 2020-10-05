@@ -12,18 +12,18 @@ class Venda extends Model
     protected $guarded = [];
 
     public function Cliente() {
-        return $this->hasOne("App\Models\Cliente", "clientes_id");
+        return $this->belongsTo("App\Models\Cliente", "clientes_id");
     }
 
     public function Vendedora() {
-        return $this->hasOne("App\Models\Vendedora", "vendedoras_id");
+        return $this->belongsTo("App\Models\Vendedora", "vendedoras_id");
     }
 
     public function FormaPagamento() {
-        return $this->hasOne("App\Models\FormaPagamento", "formas_pagamentos_id");
+        return $this->belongsTo("App\Models\FormaPagamento", "formas_pagamentos_id");
     }
 
     public function Saida() {
-        return $this->belongsTo("App\Models\Saida", "vendas_id");
+        return $this->hasMany("App\Models\Saida", "vendas_id");
     }
 }

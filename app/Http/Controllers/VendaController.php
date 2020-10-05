@@ -2,19 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
+use App\Models\FormaPagamento;
+use App\Models\Produto;
 use App\Models\Venda;
+use App\Models\Vendedora;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class VendaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
-        //
+        $vendas = Venda::with(['Cliente','Vendedora','Saida','FormaPagamento'])->get();
+        $produdos = Produto::with(['Foto', 'TipoProduto'])->where("ativo", true)
+            ->get()
+            ->filter(function($item) {
+                return $item->estoque > 0;
+            });
+        $clientes = Cliente::all();
+        $vendedoras = Vendedora::all();
+        $formas_pagamento = FormaPagamento::all();
+
+        return Inertia::render('Venda',
+            [
+                "vendas" => $vendas,
+                "clientes" => $clientes,
+                "vendedoras" => $vendedoras,
+                "produtos" => $produdos,
+                "formas_pagamento" => $formas_pagamento
+            ]
+        );
     }
 
     /**

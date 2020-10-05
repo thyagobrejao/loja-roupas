@@ -1,41 +1,6 @@
 <template>
     <the-container>
         <CRow>
-            <CCol md="4">
-                <CCard>
-                    <CCardHeader>
-                        Números
-                    </CCardHeader>
-                    <CCardBody>
-                        <table class="table table-bordered table-striped table-hover">
-                            <tbody>
-                            <tr>
-                                <td>Peças de entrada</td>
-                                <td>{{ numeros.entradas.qts }}</td>
-                            </tr>
-                            <tr>
-                                <td>Valor gasto de entrada</td>
-                                <td>R$ {{ numeros.entradas.valor }}</td>
-                            </tr>
-                            <tr>
-                                <td>Peças de sadía</td>
-                                <td>{{ numeros.saidas.qts }}</td>
-                            </tr>
-                            <tr>
-                                <td>Valor recebido pelas vendas</td>
-                                <td>R$ {{ numeros.saidas.valor }}</td>
-                            </tr>
-                            <tr>
-                                <td>Total em caixa</td>
-                                <td>R$ {{ numeros.saidas.valor - numeros.entradas.valor }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </CCardBody>
-                </CCard>
-            </CCol>
-        </CRow>
-        <CRow>
             <CCol md="12">
                 <CCard>
                     <CCardHeader>
@@ -56,6 +21,26 @@
                             pagination
                             :noItemsView="{noResults: 'Nenhum resultado encontrado.', noItems: 'Nenhum Produto Cadastrado'}"
                         >
+                            <template #estoque="{item}">
+                                <td class="py-2">
+                                    <ul v-if="!isEmpty(item.tamanhos)">
+                                        <li v-for="(tamanho, index) in item.tamanhos" :key="index">
+                                            {{ index }} - {{ tamanho }}
+                                        </li>
+                                    </ul>
+                                    <CBadge v-else color="warning">Sem Estoque</CBadge>
+                                </td>
+                            </template>
+                            <template #reservas="{item}">
+                                <td class="py-2">
+                                    <ul v-if="!isEmpty(item.reservas)">
+                                        <li v-for="(tamanho, index) in item.reservas" :key="index">
+                                            {{ index }} - {{ tamanho }}
+                                        </li>
+                                    </ul>
+                                    <CBadge v-else color="info">Sem Reserva</CBadge>
+                                </td>
+                            </template>
                             <template #caminho_foto="{item}">
                                 <td class="py-2">
                                     <CLink
@@ -73,6 +58,41 @@
                                 </td>
                             </template>
                         </CDataTable>
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="4">
+                <CCard>
+                    <CCardHeader>
+                        Números
+                    </CCardHeader>
+                    <CCardBody>
+                        <table class="table table-bordered table-striped table-hover">
+                            <tbody>
+                            <tr>
+                                <td>Peças de entrada</td>
+                                <td>{{ numeros.entradas.qts }}</td>
+                            </tr>
+                            <tr>
+                                <td>Valor gasto de entrada</td>
+                                <td>R$ {{ numeros.entradas.valor }}</td>
+                            </tr>
+                            <tr>
+                                <td>Peças de saída</td>
+                                <td>{{ numeros.saidas.qts }}</td>
+                            </tr>
+                            <tr>
+                                <td>Valor recebido pelas vendas</td>
+                                <td>R$ {{ numeros.saidas.valor }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total em caixa</td>
+                                <td>R$ {{ numeros.saidas.valor - numeros.entradas.valor }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </CCardBody>
                 </CCard>
             </CCol>
@@ -114,7 +134,7 @@
         {key: 'descricao', label: 'Descrição'},
         {key: 'tipo', label: 'Tipo de Produto'},
         {key: 'fornecedor', label: 'Fornecedor'},
-        {key: 'valor_sugerido', label: 'Valor Sugerido'},
+        {key: 'valor_sugerido', label: 'Valor Para Venda'},
         {key: 'entradas', label: 'Entradas'},
         {key: 'saidas', label: 'Saídas'},
         {key: 'estoque', label: 'Estoque'},
@@ -158,6 +178,9 @@
             abreFotos: function (item) {
                 this.atualData = item;
                 this.modalFotos = true;
+            },
+            isEmpty(obj) {
+                return this.$_.isEmpty(obj);
             },
         },
         components: {
