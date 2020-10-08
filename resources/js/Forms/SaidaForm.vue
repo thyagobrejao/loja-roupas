@@ -23,26 +23,23 @@
                 />
             </CCol>
         </CRow>
-        <CRow>
-            <CCol sm="12">
-                <CInput
-                    label="Quantidade"
-                    placeholder="Quantidade de produto..."
-                    type="number"
-                    v-model="form.quantidade"
-                />
-            </CCol>
-        </CRow>
-        <CRow>
+        <CRow v-if="form.produtos_id">
             <CCol sm="12">
                 <label>Tamanho</label>
                 <select class="form-control" v-model="form.tamanho">
-                    <option value="">Selecione o tamanho</option>
-                    <option v-for="(u, i) in tamanhos_list" :key="i" :value="u">{{ u }}</option>
+                    <option v-for="(u, i) in atual.tamanhos" :key="i" :value="i">{{ i }}</option>
                 </select>
             </CCol>
         </CRow>
-        <CRow>
+        <CRow v-if="form.tamanho">
+            <CCol sm="12">
+                <label>Quantidade</label>
+                <select class="form-control" v-model="form.quantidade">
+                    <option v-for="i in atual.tamanhos[form.tamanho]" :key="i" :value="i">{{ i }}</option>
+                </select>
+            </CCol>
+        </CRow>
+        <CRow v-if="form.quantidade">
             <CCol sm="12">
                 <label>Status</label>
                 <select class="form-control" v-model="form.status">
@@ -50,7 +47,7 @@
                 </select>
             </CCol>
         </CRow>
-        <CRow>
+        <CRow v-if="form.status">
             <CCol sm="12">
                 <CInput
                     label="Valor de Venda"
@@ -73,7 +70,7 @@
                 </CAlert>
             </CCol>
         </CRow>
-        <CRow>
+        <CRow v-if="form.valor_venda">
             <CCol sm="12" class="text-right">
                 <CAlert color="info" v-if="form.processing">
                     <CSpinner color="warning" grow/>
@@ -104,7 +101,7 @@ import NotaFiscalForm from "./NotaFiscalForm";
 import {tamanhos, statusEntrada} from "../../assets/constants"
 
 export default {
-    name: "EntradasForm",
+    name: "SaidaForm",
     components: {NotaFiscalForm},
     props: ['data', 'notas_fiscais', 'produtos'],
 
@@ -115,7 +112,7 @@ export default {
                     nota_fiscals_id: this.data.nota_fiscals_id,
                     quantidade: this.data.quantidade,
                     tamanho: this.data.tamanho,
-                    valor_unitario: this.data.valor_venda,
+                    valor_venda: this.data.valor_venda,
                     status: this.data.status,
                 },
                 {
@@ -128,6 +125,7 @@ export default {
             modalNota: false,
             tamanhos_list: tamanhos(),
             status_list: statusEntrada(),
+            atual: null,
         }
     },
 
@@ -173,22 +171,19 @@ export default {
             return this.$_.isEmpty(obj);
         },
         fotoProduto(produto) {
+            this.atual = produto;
             if (!this.isEmpty(produto.foto)) {
                 this.prod_foto = produto.foto[0].caminho
             } else {
                 this.prod_foto = null;
             }
         },
-        fotoNota(nota) {
-            if (!this.isEmpty(nota.caminho_foto)) {
-                this.nota_foto = nota.caminho_foto
-            } else {
-                this.nota_foto = null;
-            }
-        },
         formataData(date) {
             return moment(date).format("DD/MM/YYYY");
-        }
+        },
+        quantidades() {
+
+        },
     },
 }
 </script>
