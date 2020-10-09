@@ -72,17 +72,19 @@
                     <tr>
                         <th>Cod</th>
                         <th>Desc</th>
+                        <th>Tm</th>
                         <th>Qtd</th>
                         <th>X</th>
                     </tr>
                     </thead>
                     <tbody v-if="!isEmpty(form.saidas)">
-                    <tr v-for="(prod, index) in form.saidas" :key="index">
-                        <td>{{ prod.codigo }}</td>
-                        <td>{{ prod.descricao }}</td>
-                        <td>{{ prod.quantidade }}</td>
+                    <tr v-for="(produto, index) in form.saidas" :key="index">
+                        <td>{{ produto.prod.codigo }}</td>
+                        <td>{{ produto.prod.descricao }}</td>
+                        <td>{{ produto.tamanho }}</td>
+                        <td>{{ produto.quantidade }}</td>
                         <td>
-                            <CButton color="danger">
+                            <CButton color="danger" @click="removeProduto(index)">
                                 <CIcon name="cil-trash"/>
                             </CButton>
                         </td>
@@ -244,6 +246,10 @@ export default {
         this.$root.$on('fechar-modal-forma-pagamento', () => {
             this.modalPagamento = false;
         });
+        this.$root.$on('salvar-saida', (form) => {
+            this.form.saidas.push(form);
+            this.modalSaida = false;
+        });
     },
 
     methods: {
@@ -257,6 +263,9 @@ export default {
         isEmpty(obj) {
             return this.$_.isEmpty(obj);
         },
+        removeProduto(index) {
+            this.form.saidas.splice(index, 1);
+        }
     },
 }
 </script>

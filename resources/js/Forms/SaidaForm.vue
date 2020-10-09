@@ -41,13 +41,14 @@
         </CRow>
         <CRow v-if="form.quantidade">
             <CCol sm="12">
-                <label>Status</label>
-                <select class="form-control" v-model="form.status">
-                    <option v-for="(value, index) in status_list" :key="index" :value="index">{{ value }}</option>
+                <label>Reserva</label>
+                <select class="form-control" v-model="form.reserva">
+                    <option value="0" selected>Não</option>
+                    <option value="1">Sim</option>
                 </select>
             </CCol>
         </CRow>
-        <CRow v-if="form.status">
+        <CRow v-if="form.reserva">
             <CCol sm="12">
                 <CInput
                     label="Valor de Venda"
@@ -56,6 +57,7 @@
                     step="0.01"
                     v-model="form.valor_venda"
                 />
+                <small>Valor para venda cadastrado: R$ {{ atual.valor_sugerido }}</small>
             </CCol>
         </CRow>
         <CRow v-if="!isEmpty(formError)">
@@ -98,7 +100,6 @@
 <script>
 
 import NotaFiscalForm from "./NotaFiscalForm";
-import {tamanhos, statusEntrada} from "../../assets/constants"
 
 export default {
     name: "SaidaForm",
@@ -109,11 +110,10 @@ export default {
         return {
             form: this.$inertia.form({
                     produtos_id: this.data.produtos_id,
-                    nota_fiscals_id: this.data.nota_fiscals_id,
                     quantidade: this.data.quantidade,
                     tamanho: this.data.tamanho,
+                    reserva: this.data.reserva,
                     valor_venda: this.data.valor_venda,
-                    status: this.data.status,
                 },
                 {
                     resetOnSuccess: true,
@@ -123,8 +123,6 @@ export default {
             prod_foto: null,
             nota_foto: null,
             modalNota: false,
-            tamanhos_list: tamanhos(),
-            status_list: statusEntrada(),
             atual: null,
         }
     },
@@ -161,11 +159,13 @@ export default {
 
     methods: {
         submit() {
-            if (this.nameAction === 'Salvar') {
-                this.form.post('/entrada');
-            } else {
-                this.form.put(`/entrada/${this.data.id}`);
-            }
+            this.form.prod = this.atual;
+            this.$root.$emit('salvar-saida', this.form)
+            // if (this.nameAction === 'Salvar') {
+            //     this.form.post('/entrada');
+            // } else {
+            //     this.form.put(`/entrada/${this.data.id}`);
+            // }
         },
         isEmpty(obj) {
             return this.$_.isEmpty(obj);

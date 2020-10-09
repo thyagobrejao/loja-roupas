@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\FormaPagamento;
 use App\Models\Produto;
+use App\Models\Saida;
 use App\Models\Venda;
 use App\Models\Vendedora;
 use Illuminate\Http\Request;
@@ -54,11 +55,36 @@ class VendaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'vendedoras_id' => 'required',
+            'clientes_id' => 'required',
+            'formas_pagamentos_id' => 'required',
+        ]);
+
+        $venda = new Venda();
+        $venda->vendedoras_id = $request->get("vendedoras_id");
+        $venda->clientes_id = $request->get("clientes_id");
+        $venda->formas_pagamentos_id = $request->get("formas_pagamentos_id");
+        $venda->desconto = $request->get("desconto");
+        $venda->save();
+
+        foreach ($request->get("saidas") as $saidas) {
+            $saida = new Saida();
+            $saida->produtos_id = $saidas["produtos_id"];
+            $saida->quantidade = $saidas["quantidade"];
+            $saida->tamanho = $saidas["tamanho"];
+            $saida->reserva = $saidas["reserva"];
+            $saida->valor_venda = $saidas["valor_venda"];
+            $saida->vendas_id = $venda->id;
+            $saida->save();
+        }
+
+        return redirect()->back();
+
     }
 
     /**

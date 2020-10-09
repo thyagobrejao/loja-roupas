@@ -130,10 +130,10 @@ import TheContainer from "../containers/TheContainer";
 import ProdutoForm from "../Forms/ProdutoForm";
 
 const fields = [
+    {key: 'codigo', label: 'Código'},
     {key: 'descricao', label: 'Descrição'},
     {key: 'tipo_produto', label: 'Tipo de Produto'},
     {key: 'cor', label: 'Cor'},
-    {key: 'codigo', label: 'Código'},
     {key: 'fornecedor_nome', label: 'Fornecedor'},
     {key: 'valor_sugerido', label: 'Valor Para Venda'},
     {key: 'caminho_foto', label: 'Foto'},
