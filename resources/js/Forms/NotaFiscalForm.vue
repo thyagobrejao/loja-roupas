@@ -2,11 +2,11 @@
     <div>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    label="Valor Total"
-                    placeholder="Valor total da nota..."
+                <label for="valor_total" class="">Valor Total</label>
+                <money
+                    id="valor_total"
                     v-model="form.valor_total"
-                />
+                    class="form-control"/>
             </CCol>
         </CRow>
         <CRow>

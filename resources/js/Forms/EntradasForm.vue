@@ -81,13 +81,11 @@
         </CRow>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    label="Valor Unitário"
-                    placeholder="Valor Unitário do produto..."
-                    type="number"
-                    step="0.01"
+                <label for="valor_unitario" class="">Valor Unitário</label>
+                <money
+                    id="valor_unitario"
                     v-model="form.valor_unitario"
-                />
+                    class="form-control"/>
             </CCol>
         </CRow>
         <CRow v-if="!isEmpty(formError)">

@@ -50,13 +50,11 @@
         </CRow>
         <CRow v-if="form.reserva">
             <CCol sm="12">
-                <CInput
-                    label="Valor de Venda"
-                    placeholder="Valor de venda do produto..."
-                    type="number"
-                    step="0.01"
+                <label for="valor_venda" class="">Valor de Venda</label>
+                <money
+                    id="valor_venda"
                     v-model="form.valor_venda"
-                />
+                    class="form-control"/>
                 <small>Valor para venda cadastrado: R$ {{ atual.valor_sugerido }}</small>
             </CCol>
         </CRow>

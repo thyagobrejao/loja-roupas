@@ -66,12 +66,11 @@
         </CRow>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    type="number"
-                    label="Valor Para Venda"
-                    placeholder="Valor para do produto..."
+                <label for="valor_sugerido" class="">Valor Para Venda</label>
+                <money
+                    id="valor_sugerido"
                     v-model="form.valor_sugerido"
-                />
+                    class="form-control"/>
             </CCol>
         </CRow>
         <CRow>

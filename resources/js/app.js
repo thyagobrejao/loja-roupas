@@ -84,6 +84,17 @@ Vue.use(require('vue-moment'));
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 
+import money from 'v-money'
+// register directive v-money and component <money>
+Vue.use(money, {
+    decimal: ',',
+    thousands: '.',
+    prefix: 'R$ ',
+    suffix: '',
+    precision: 2,
+    masked: false
+})
+
 const app = document.getElementById('app');
 
 new Vue({
