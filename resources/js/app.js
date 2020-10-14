@@ -95,6 +95,9 @@ Vue.use(money, {
     masked: false
 })
 
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)
+
 const app = document.getElementById('app');
 
 new Vue({

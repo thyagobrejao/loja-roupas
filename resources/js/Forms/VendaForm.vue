@@ -103,12 +103,12 @@
         </CRow>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    type="number"
-                    label="Desconto"
-                    placeholder="Desconto em percentagem..."
+                <label for="desconto" class="">Desconto</label>
+                <money
+                    id="desconto"
                     v-model="form.desconto"
-                />
+                    v-bind="money"
+                    class="form-control"/>
             </CCol>
         </CRow>
         <CRow v-if="!isEmpty(formError)">
@@ -210,6 +210,14 @@ export default {
             modalCliente: false,
             modalPagamento: false,
             modalSaida: false,
+            money: {
+                decimal: ',',
+                thousands: '.',
+                prefix: '',
+                suffix: ' %',
+                precision: 2,
+                masked: false
+            }
         }
     },
 

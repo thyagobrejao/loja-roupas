@@ -20,9 +20,11 @@
         </CRow>
         <CRow>
             <CCol sm="12">
-                <CInput
-                    label="Telefone"
-                    placeholder="Telefone da cliente..."
+                <label for="telefone" class="">Telefone</label>
+                <the-mask
+                    id="telefone"
+                    :mask="['(##) ####-####', '(##) #####-####']"
+                    class="form-control"
                     v-model="form.telefone"
                 />
             </CCol>
