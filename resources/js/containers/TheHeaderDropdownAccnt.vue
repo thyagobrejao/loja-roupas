@@ -22,11 +22,9 @@
             </inertia-link>
         </CDropdownItem>
         <CDropdownItem>
-            <form @submit.prevent="logout">
-                <button type="submit" class="dropdown-item" role="menuitem">
-                    Sair
-                </button>
-            </form>
+            <button class="dropdown-item" role="menuitem" @click="logout">
+                Sair
+            </button>
         </CDropdownItem>
     </CDropdown>
 </template>
@@ -43,7 +41,7 @@ export default {
     computed: {},
     methods: {
         logout() {
-            axios.post('/logout').then(response => {
+            this.$inertia.post('/logout').then(response => {
                 window.location = '/';
             })
         },
