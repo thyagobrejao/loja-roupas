@@ -77,7 +77,7 @@
         >
             <CImg
                 fluid
-                :src="`/images?path=/notas/${item.caminho_foto}`
+                :src="`/images?path=/notas/${item.caminho_foto}`"
             />
             <template #footer>
                 <CButton @click="modalNota = false" color="danger">Fechar</CButton>
