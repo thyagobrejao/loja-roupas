@@ -39,3 +39,9 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'artisan:migrate');
+
+task('reload:php-fpm', function () {
+    run('sudo /bin/systemctl restart php7.4-fpm.service');
+});
+
+after('deploy', 'reload:php-fpm');
