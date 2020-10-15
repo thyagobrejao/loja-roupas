@@ -77,7 +77,7 @@
                             </tr>
                             <tr>
                                 <td>Valor gasto de entrada</td>
-                                <td>R$ {{ numeros.entradas.valor }}</td>
+                                <td>{{ numeros.entradas.valor | moedaBr }}</td>
                             </tr>
                             <tr>
                                 <td>Peças de saída</td>
@@ -85,11 +85,11 @@
                             </tr>
                             <tr>
                                 <td>Valor recebido pelas vendas</td>
-                                <td>R$ {{ numeros.saidas.valor }}</td>
+                                <td>{{ numeros.saidas.valor | moedaBr }}</td>
                             </tr>
                             <tr>
                                 <td>Total em caixa</td>
-                                <td>R$ {{ numeros.saidas.valor - numeros.entradas.valor }}</td>
+                                <td>{{ numeros.saidas.valor - numeros.entradas.valor | moedaBr }}</td>
                             </tr>
                             </tbody>
                         </table>

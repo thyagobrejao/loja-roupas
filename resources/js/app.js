@@ -80,6 +80,14 @@ Vue.use(VueAlertify);
 
 Vue.use(require('vue-moment'));
 
+Vue.filter('moedaBr', function (value) {
+    return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL", // CNY for Chinese Yen, EUR for Euro
+        minimumFractionDigits: 2,
+        currencyDisplay: "symbol",
+    }).format(value);
+});
 
 import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
