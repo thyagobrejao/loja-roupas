@@ -87,11 +87,21 @@ class EntradaController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Entrada  $entrada
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Entrada $entrada)
     {
-        //
+        $request->validate([
+            'quantidade' => 'required',
+            'tamanho' => 'required',
+            'valor_unitario' => 'required',
+            'status' => 'required',
+            'produtos_id' => 'required',
+        ]);
+
+        $entrada->update($request->all());
+
+        return redirect()->back();
     }
 
     /**

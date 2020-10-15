@@ -87,7 +87,7 @@
             :show.sync="modalFotos"
             size="xl"
         >
-            <CRow v-for="(foto, index) in atualData.foto" :key="index">
+            <CRow v-for="(foto, index) in atualData.produto.foto" :key="index">
                 <CImg
                     fluid
                     block
