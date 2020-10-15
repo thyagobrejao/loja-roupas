@@ -48,6 +48,11 @@
                                     </CButton>
                                 </td>
                             </template>
+                            <template #valor_sugerido="{item}">
+                                <td class="py-2">
+                                    {{ item.valor_sugerido | moedaBr }}
+                                </td>
+                            </template>
                             <template #ativo="{item}">
                                 <td class="py-2 text-center">
                                     <div v-if="item.ativo === 1">

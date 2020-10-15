@@ -31,6 +31,11 @@
                                     <CBadge v-else color="warning">Sem Estoque</CBadge>
                                 </td>
                             </template>
+                            <template #valor_sugerido="{item}">
+                                <td class="py-2">
+                                    {{ item.valor_sugerido | moedaBr }}
+                                </td>
+                            </template>
                             <template #reservas="{item}">
                                 <td class="py-2">
                                     <ul v-if="!isEmpty(item.reservas)">

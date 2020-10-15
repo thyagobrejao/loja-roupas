@@ -35,6 +35,11 @@
                                     <CBadge v-else color="info">Sem Foto</CBadge>
                                 </td>
                             </template>
+                            <template #valor_unitario="{item}">
+                                <td class="py-2">
+                                    {{ item.valor_unitario | moedaBr }}
+                                </td>
+                            </template>
                             <template #show_details="{item}">
                                 <td class="py-2">
                                     <CButton
