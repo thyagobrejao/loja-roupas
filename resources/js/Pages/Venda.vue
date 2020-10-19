@@ -32,6 +32,11 @@
                                     </CButton>
                                 </td>
                             </template>
+                            <template #created_at="{item}">
+                                <td class="py-2">
+                                    {{ item.created_at | moment("DD/MM/YYYY hh:mm") }}
+                                </td>
+                            </template>
                         </CDataTable>
                     </CCardBody>
                 </CCard>
@@ -80,6 +85,7 @@ const fields = [
     {key: 'cliente', label: 'Cliente'},
     {key: 'vendedora', label: 'Vendedora'},
     {key: 'forma_pagamento', label: 'Forma de Pagamento'},
+    {key: 'created_at', label: 'Data'},
     {
         key: 'show_details',
         label: '',

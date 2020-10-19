@@ -3,17 +3,11 @@
         <CRow>
             <CCol sm="12">
                 <label>Produto</label>
-                <select v-model="form.produtos_id"
-                        class="form-control"
-                >
-                    <option v-for="(prod, index) in produtos"
-                            :value="prod.id"
-                            :key="index"
-                            @click="fotoProduto(prod)"
-                    >
-                        {{ prod.codigo }} - {{ prod.descricao }}
-                    </option>
-                </select>
+                <v-select
+                    :options="produtosSelect"
+                    v-model="selected"
+                    @input="fotoProduto"
+                />
                 <CImg
                     v-if="prod_foto"
                     thumbnail
@@ -117,6 +111,7 @@ export default {
                     resetOnSuccess: true,
                     preserveScroll: true
                 }),
+            selected: null,
             nameAction: 'Salvar',
             prod_foto: null,
             nota_foto: null,
@@ -126,6 +121,13 @@ export default {
     },
 
     computed: {
+        produtosSelect() {
+            return this.produtos.map(item => {
+                return {
+                    label: `${item.codigo} - ${item.descricao}`, id: item.id, data: item
+                }
+            })
+        },
         formSaved() {
             return this.form.recentlySuccessful;
         },
@@ -147,6 +149,10 @@ export default {
     mounted() {
         if (!this.isEmpty(this.data)) {
             this.nameAction = "Alterar";
+            this.selected = this.produtosSelect.find(obj => {
+                return obj.id === this.data.produtos_id
+            });
+            this.fotoProduto(this.selected);
         }
         this.$page.errors = {};
 
@@ -169,9 +175,10 @@ export default {
             return this.$_.isEmpty(obj);
         },
         fotoProduto(produto) {
-            this.atual = produto;
-            if (!this.isEmpty(produto.foto)) {
-                this.prod_foto = produto.foto[0].caminho
+            this.atual = produto.data;
+            this.form.produtos_id = produto.id;
+            if (!this.isEmpty(produto.data.foto)) {
+                this.prod_foto = produto.data.foto[0].caminho
             } else {
                 this.prod_foto = null;
             }
