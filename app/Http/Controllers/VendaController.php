@@ -22,7 +22,10 @@ class VendaController extends Controller
     {
         $vendas = Venda::with(['Cliente','Vendedora','Saida','FormaPagamento'])->get();
         $produdos = Produto::with(['Foto', 'TipoProduto'])->where("ativo", true)
-            ->get();
+            ->get()
+            ->filter(function($item) {
+                return $item->estoque > 0;
+            });
         $clientes = Cliente::all();
         $vendedoras = Vendedora::all();
         $formas_pagamento = FormaPagamento::all();
