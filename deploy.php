@@ -41,7 +41,7 @@ after('deploy:failed', 'deploy:unlock');
 before('deploy:symlink', 'artisan:migrate');
 
 task('reload:php-fpm', function () {
-    run('sudo /bin/systemctl restart php7.4-fpm.service');
+    run('sudo /bin/systemctl restart php8.0-fpm.service');
 });
 
 after('deploy', 'reload:php-fpm');
